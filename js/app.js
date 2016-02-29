@@ -15,8 +15,9 @@ var ViewModel = function () {
 	model.forEach(function(eachLoc){
 		self.mapList.push(new Loc(eachLoc));
 	});
+}
 
-	function initMap() {
+function initMap() {
 	  var myLatLng = {lat: 37, lng: 34};
 
 	  // Create a map object and specify the DOM element for display.
@@ -32,7 +33,6 @@ var ViewModel = function () {
 	    position: myLatLng,
 	    title: 'Hello World!'
 	  });
-	};
-}
+	}
 
 ko.applyBindings(new ViewModel());
