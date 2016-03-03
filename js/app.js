@@ -87,10 +87,8 @@ var ViewModel = function () {
 
 	self.search = function(value) {
 		if (value !== '') {
-			// self.showHide(false);
 			for (var x in self.mapList()) {
 				if (self.mapList()[x].name().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
-					// self.mapList.push(self.mapList[x]);
 					self.mapList()[x].showHide(true);
 				} else {
 					self.mapList()[x].showHide(false);
