@@ -1,5 +1,7 @@
 # Neighborhood Map
 
+You have two options for running this application,
+
 1. In order to run this application, go to the link http://bdirgo.github.io/frontend-nanodegree-neighborhood-map/
 
 1. or click on the "index.html" after downloading this repository.
