@@ -55,6 +55,7 @@ function addMarker(location, contentString, map) {
 	});
 	var marker = new google.maps.Marker({
 		position: location,
+		animation: google.maps.Animation.DROP,
 		map: map,
 	});
 	marker.addListener('click', function() {
