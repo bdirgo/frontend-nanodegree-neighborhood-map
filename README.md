@@ -1,8 +1,8 @@
-# frontend-nanodegree-neighborhood-map
+# Neighborhood Map
 
-In order to run this application, go to the link http://bdirgo.github.io/frontend-nanodegree-neighborhood-map/
+1. In order to run this application, go to the link http://bdirgo.github.io/frontend-nanodegree-neighborhood-map/
 
-or click on the "index.html" after downloading this repository.
+1. or click on the "index.html" after downloading this repository.
 
 The application shows the top twenty results from Yelp of Thai resturants in Sydney Austrailia. The data is shown in a list along the side of the map as well as on markers on top of the map. Typing in the search field will search among the twenty results' names, and filter the results on the list as well as on the map.
 
