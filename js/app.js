@@ -19,10 +19,34 @@ function nonce_generate() {
   return (Math.floor(Math.random() * 1e12).toString());
 }
 
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+  setMapOnAll(null);
+}
+
+// Shows any markers currently in the array.
+function showMarkers() {
+  setMapOnAll(map);
+}
+
+// Set the map on a specific marker
+function setMapOnMarker(i, map) {
+	markers[i].setMap(map);
+}
+
+
 /**
  * Creates a Marker on the map that is passed in
  * @param {object} location, {lat: 123, lng: 22}
  * @param {object} map, the map the marker will appear on
+ * @return {marker} returns the marker made so that the model can reference it later
  */
 function addMarker(location, contentString, map) {
 	var infowindow = new google.maps.InfoWindow({
@@ -46,11 +70,13 @@ function addMarker(location, contentString, map) {
 		    lastInfoWindow = infowindow;
 		}
 	});
+	markers.push(marker);
 	return marker;
 }
 
 var map;
 var lastInfoWindow = null;
+var markers = [];
 function initMap() {
 	var sydney = {lat: -33.8650, lng: 151.2094};
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -87,17 +113,19 @@ var ViewModel = function () {
 
 	self.search = function(value) {
 		if (value !== '') {
+			clearMarkers();
 			for (var x in self.mapList()) {
 				if (self.mapList()[x].name().toLowerCase().indexOf(value.toLowerCase()) >= 0) {
 					self.mapList()[x].showHide(true);
+					setMapOnMarker(x,map);
 				} else {
 					self.mapList()[x].showHide(false);
-
 				}
 			}
 		}
 		else if (value === '') {
 			self.showHide(true);
+			showMarkers();
 			for (var x in self.mapList()) {
 				self.mapList()[x].showHide(true);
 			}

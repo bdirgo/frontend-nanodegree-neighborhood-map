@@ -18,12 +18,11 @@
 </head>
 <body>
 	<div class="container">
-		<div class="row" id="search">
+		<div class="row">
 			<div class="col-xs-12 ">
 				<input placeholder="Search…" type="search" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off">
 			</div>
 		</div>
-		<div class="row">
 			<div id="mapList" class="col-xs-12 col-sm-3" >
 				<ol class="list" data-bind="visible: showHide, foreach: mapList">
 					<li data-bind="visible: $data.showHide">

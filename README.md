@@ -7,4 +7,5 @@ Much thanks to MarkN for this forum post explaining how AJAX works, https://disc
 
 And to vshane668 for the help figuring out how to use that data once the ajax call came through, https://discussions.udacity.com/t/updating-knockout-observablearray-with-ajax-callback-produces-randomly-sorted-results/47528
 
+And to etienne for showing how to dismiss the previous infoWindow when opening the next infoWindow https://discussions.udacity.com/t/having-a-hard-time-binding-the-map-markers/158640/6
 
