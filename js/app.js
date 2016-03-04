@@ -122,6 +122,7 @@ var ViewModel = function () {
 
 	var self = this;
 	this.mapList = ko.observableArray([]);
+	var $mapList = $("#mapList");
 	this.query = ko.observable('');
 	this.showHide = ko.observable(true);
 
@@ -194,13 +195,20 @@ var ViewModel = function () {
 			cache: true,                // This is crucial to include as well to prevent jQuery from adding on a cache-buster parameter "_=23489489749837", invalidating our oauth-signature
 			dataType: 'jsonp',
 			success: function(results){
-				callback(results)
+				clearTimeout(requestTimeout);
+				callback(results);
 			},
 			fail: function(xhr, status) {
 				alert("Sorry, but something went wrong when loading the website. Make sure you are connected to the internet, and try refreshing the page. Error code: " + status);
 				console.log("AJAX fail :-(");
 			}
 		};
+
+		//Handle a failed ajax call by placing text where the list would go.
+		var requestTimeout = setTimeout(function(){
+			$mapList.text("failed to get Yelp resources. Make sure you are connected to the internet, and try refreshing the page.");
+		}, 8000);
+
 		// Send AJAX query via jQuery library.
 		$.ajax(settings);
 	};
