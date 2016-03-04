@@ -59,15 +59,19 @@ function addMarker(location, contentString, map) {
 		map: map,
 	});
 	marker.addListener('click', function() {
+
 		if(lastInfoWindow === infowindow) {
 		    infowindow.close();
 		    lastInfoWindow = null;
+		    marker.setAnimation(null);
 		}
 		else {
 		    if(lastInfoWindow !== null) {
 		        lastInfoWindow.close();
 		    }
 		    infowindow.open(map, marker);
+		    marker.setAnimation(google.maps.Animation.BOUNCE);
+			setTimeout(function(){marker.setAnimation(null);}, 1440);
 		    lastInfoWindow = infowindow;
 		}
 	});
@@ -87,8 +91,17 @@ function initMap() {
 	});
 }
 
+function googleError() {
+	alert('There seems to be something that has gone wrong. Make sure you are connected to the internet, and try refreshing the page.');
+}
+
+window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
+    alert('There seems to be something that has gone wrong. Make sure you are connected to the internet, and try refreshing the page. If you are the site administrator the details are below. Error: ' + errorMsg + ' Script: ' + url + ' Line: ' + lineNumber
+    + ' Column: ' + column + ' StackTrace: ' +  errorObj);
+}
+
 /**
- * Creates a Place object with Knockout Observables as the properties
+ * Place class with Knockout Observables as the properties
  * @param {string} name, Name of the resturant
  * @param {string} id, unique id
  * @param {number} lat
@@ -120,6 +133,7 @@ var ViewModel = function () {
 					self.mapList()[x].showHide(true);
 					setMapOnMarker(x,map);
 				} else {
+
 					self.mapList()[x].showHide(false);
 				}
 			}
@@ -182,7 +196,8 @@ var ViewModel = function () {
 			success: function(results){
 				callback(results)
 			},
-			fail: function() {
+			fail: function(xhr, status) {
+				alert("Sorry, but something went wrong when loading the website. Make sure you are connected to the internet, and try refreshing the page. Error code: " + status);
 				console.log("AJAX fail :-(");
 			}
 		};
@@ -192,7 +207,13 @@ var ViewModel = function () {
 
 	self.request(function(data){
 		for (var i = data.businesses.length - 1; i >= 0; i--) {
-	  		self.mapList.push(new Place(data.businesses[i].name, data.businesses[i].id, data.businesses[i].location.coordinate.latitude, data.businesses[i].location.coordinate.longitude, data.businesses[i].location.display_address));
+	  		self.mapList.push(new Place(
+	  			data.businesses[i].name,
+	  			data.businesses[i].id,
+	  			data.businesses[i].location.coordinate.latitude,
+	  			data.businesses[i].location.coordinate.longitude,
+	  			data.businesses[i].location.display_address
+	  			));
 	  	};
 		self.currentPlace = ko.observable( self.mapList()[0] );
 	});
@@ -201,4 +222,3 @@ var ViewModel = function () {
 }
 
 ko.applyBindings(new ViewModel());
-
